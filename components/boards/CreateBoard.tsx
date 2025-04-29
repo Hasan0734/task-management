@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import {
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -24,7 +23,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { toast } from "@/hooks/use-toast";
 import {
   Select,
   SelectContent,
@@ -35,33 +33,30 @@ import {
   SelectValue,
 } from "../ui/select";
 import { tailwindColors } from "@/lib/color";
+import { toast } from "sonner";
 
 const FormSchema = z.object({
   bg_color: z.string({
     required_error: "Please select a language.",
   }),
-  title: z.string({required_error: 'Board title is required!'})
+  title: z.string({ required_error: "Board title is required!" }),
 });
 
 const CreateBoard = () => {
-  const [color, setColor] = useState("");
-
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-  const handleColorChange = (color: string) => {
-    console.log("Selected color:", color);
-    // Do something with the selected color value
-    setColor(color);
-  };
-
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data)
-    
+    console.log(data);
+    toast("Event has been created", {
+      description: "Sunday, December 03, 2023 at 9:00 AM",
+      action: {
+        label: "Undo",
+        onClick: () => console.log("Undo"),
+      },
+    });
   }
-
-
 
   return (
     <DialogContent className="sm:max-w-[425px]">
@@ -91,7 +86,6 @@ const CreateBoard = () => {
                 <FormItem className="flex flex-col">
                   <FormLabel>Bg Color</FormLabel>
                   <Select
-                    
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
@@ -103,9 +97,15 @@ const CreateBoard = () => {
                     <SelectContent className="w-full">
                       {tailwindColors.map((family, i) => (
                         <SelectGroup key={i}>
-                          <SelectLabel className="capitalize text-md flex border-b">{family.name}</SelectLabel>
+                          <SelectLabel className="capitalize text-md flex border-b">
+                            {family.name}
+                          </SelectLabel>
                           {family.values.map((color, index) => (
-                            <SelectItem key={index} value={color.value} className="flex items-center justify-between w-full">
+                            <SelectItem
+                              key={index}
+                              value={color.value}
+                              className="flex items-center justify-between w-full"
+                            >
                               {family.name}-{color.name}
                               <div
                                 className="h-4 w-4 rounded-sm"
@@ -126,17 +126,15 @@ const CreateBoard = () => {
             />
 
             <FormField
-            
-            control={form.control}
-            name="title"
-            render={({field}) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Board Title</FormLabel>
-                <Input {...field} value={field.value} />
-              </FormItem>
-            )}
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Board Title</FormLabel>
+                  <Input {...field} value={field.value} />
+                </FormItem>
+              )}
             />
-            
           </div>
           <DialogFooter>
             <Button type="submit">Create</Button>
