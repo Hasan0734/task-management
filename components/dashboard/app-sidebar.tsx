@@ -1,9 +1,9 @@
 
 import {
   Calendar,
-  CheckCircle,
   LayoutDashboard,
   MessageSquare,
+  SquareKanban,
   Users,
 } from "lucide-react";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar";
@@ -18,7 +18,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     {
       title: "Boards",
       url: "/dashboard/boards",
-      icon: CheckCircle,
+      icon: SquareKanban,
     },
     {
       title: "Calendar",
