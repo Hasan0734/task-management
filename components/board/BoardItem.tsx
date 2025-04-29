@@ -12,6 +12,7 @@ const BoardItem = ({ item }: { item: string }) => {
   const [value, setValue] = useState("");
   const [cards, setCards] = useState<string[]>([]);
   const [editTitle, setEditTitle] = useState(false);
+  const [itemTitle, setItemTitle] = useState(item);
 
   const handleAddCard = () => {
     if (!value) return;
@@ -19,20 +20,31 @@ const BoardItem = ({ item }: { item: string }) => {
     setValue("");
   };
 
+  const handleChangeTitle = (e: any) => {
+    setEditTitle(false);
+    const title = e.target.value.trim();
+    console.log({title})
+
+    if (title && item !== title) {
+      console.log(title);
+      setItemTitle(title);
+      return;
+    }
+    setItemTitle(item);
+  };
   return (
     <Card className=" p-2 bg-primary space-y-3 border-0 rounded-md">
       <CardContent className="p-0 space-y-5">
         <div className="flex items-center justify-between">
           <div>
             <Input
-              
               onFocus={() => setEditTitle(true)}
-              onBlur={() => setEditTitle(false)}
+              onBlur={handleChangeTitle}
               readOnly={!editTitle}
               className={cn("text-white text-lg border-0", {
                 border: editTitle,
               })}
-              value={item}
+              defaultValue={itemTitle}
             />
           </div>
           <button className="text-white">
