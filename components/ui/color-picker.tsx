@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/popover";
 import { tailwindColors } from "@/lib/color";
 import { FormControl } from "./form";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 interface ColorPickerTypes {
   field: {
@@ -58,7 +59,8 @@ export function ColorPicker({ field, form }: ColorPickerTypes) {
       <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandInput placeholder="Search color..." />
-          
+          <ScrollArea className="h-72 w-48 rounded-md border">
+            
           <CommandList >
            
             <CommandEmpty>No color found.</CommandEmpty>
@@ -88,6 +90,7 @@ export function ColorPicker({ field, form }: ColorPickerTypes) {
               </CommandGroup>
             ))}
           </CommandList>
+          </ScrollArea>
         </Command>
       </PopoverContent>
     </Popover>
