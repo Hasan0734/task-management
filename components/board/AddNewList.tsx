@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { PlusIcon, XIcon } from "lucide-react";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { toast } from "sonner";
+import useOutsideClick from "@/lib/outsideClickHandle";
 
 interface PropsType {
   handleAddItem: (title: string) => void;
@@ -13,8 +14,13 @@ const AddNewList = ({ handleAddItem }: PropsType) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [listName, setListName] = useState("");
 
+  const handleOutsideClick = () => {
+    setModalOpen(false);
+  };
+
+  const ref = useOutsideClick(handleOutsideClick);
+
   const handlePopover = () => {
-    console.log('Hello')
 
     setModalOpen(true);
   };
@@ -32,7 +38,7 @@ const AddNewList = ({ handleAddItem }: PropsType) => {
   };
 
   return (
-    <div className="min-w-[272px]">
+    <div ref={ref} className="min-w-[272px] rounded-md overflow-hidden">
       {modalOpen ? (
         <div className=" p-2 bg-primary space-y-3 border-0 min-w-[272px]">
           <Input
@@ -57,10 +63,11 @@ const AddNewList = ({ handleAddItem }: PropsType) => {
         </div>
       ) : (
         <Button
+          onClick={handlePopover}
           variant={"secondary"}
           className="w-full justify-start cursor-pointer"
         >
-          <PlusIcon onClick={handlePopover} /> Add a list
+          <PlusIcon /> Add a list
         </Button>
       )}
     </div>
