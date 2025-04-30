@@ -4,7 +4,7 @@ import AddNewList from "./AddNewList";
 import { Card } from "../ui/card";
 import BoardItem from "./BoardItem";
 import { Column, Id } from "@/lib/types";
-import { generateId } from "@/lib/utils";
+import { generateId, moveArrayElement } from "@/lib/utils";
 import {
   DndContext,
   DragEndEvent,
@@ -40,24 +40,23 @@ const BoardDetails = () => {
   };
 
   const onDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
+    const { active, over }:any = event;
     if (!over) return;
-    const activeColumnId = active.id;
-    const overColumnId = over.id;
-    if (activeColumnId === overColumnId) return;
+  
+    if (active.id !== over.id) {
+      setItems((items) => {
+        const oldIndex = items.findIndex((items) => items.id === active.id);
+        const newIndex = items.findIndex((items) => items.id === over.id);
 
-    setItems((items) => {
-      const activeColumnIndex = items.findIndex(
-        (item) => item.id === activeColumnId
-      );
-      const overColumnIndex = items.findIndex(
-        (item) => item.id === overColumnId
-      );
-
-      return arrayMove(items, activeColumnIndex, overColumnIndex)
-    });
+        console.log(oldIndex, newIndex)
+        
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
     
   };
+
+  console.log(items)
 
   return (
     <Card className="bg-orange-500 p-4">
@@ -66,7 +65,7 @@ const BoardDetails = () => {
           <div className="flex gap-5 items-start min-h-[650px] w-full">
             <SortableContext items={columnId}>
               {items.map((item: Column, i) => (
-                <BoardItem key={i} item={item} deleteColumn={deleteColumn} />
+                <BoardItem key={item.id} item={item} deleteColumn={deleteColumn} />
               ))}
             </SortableContext>
 

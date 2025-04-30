@@ -67,7 +67,7 @@ const BoardItem = ({ item, deleteColumn }: Props) => {
       <div
         ref={setNodeRef}
         style={style}
-        className="min-w-[272px] max-w-[272px] p-2 bg-primary space-y-3  rounded-md h-[500px] opacity-60 border-2 border-gray-300"
+        className="min-w-[272px] max-w-[272px] p-2 bg-primary space-y-3  rounded-md h-[485px] opacity-60 border-2 border-gray-300"
       ></div>
     );
   }
@@ -83,7 +83,7 @@ const BoardItem = ({ item, deleteColumn }: Props) => {
         <div
           {...attributes}
           {...listeners}
-          className="flex items-center justify-between cursor-grab gap-3"
+          className="flex items-center justify-between cursor-grab gap-3 bg-gray-700/20 p-1 px-2 rounded-md"
         >
           {editTitle ? (
             <Input
@@ -106,7 +106,7 @@ const BoardItem = ({ item, deleteColumn }: Props) => {
           </button>
         </div>
         {/* tasks */}
-        <ScrollArea className="h-[500px] w-full space-y-2 ">
+        <ScrollArea className="h-[420px] w-full space-y-2 mt-3">
           <div className="space-y-2">
             {cards.map((cd, i) => (
               <Card
