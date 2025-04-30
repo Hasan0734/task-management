@@ -33,11 +33,12 @@ const BoardItem = ({ item }: { item: string }) => {
     setItemTitle(item);
   };
   return (
-    <Card className=" p-2 bg-primary space-y-3 border-0 rounded-md">
-      <CardContent className="p-0 space-y-5">
+    <Card className="min-w-[272px] max-w-[272px]  p-2 bg-primary space-y-3 border-0 rounded-md">
+      <CardContent className="p-0 space-y-5 w-full">
         <div className="flex items-center justify-between">
           <div>
             <Input
+             
               onFocus={() => setEditTitle(true)}
               onBlur={handleChangeTitle}
               readOnly={!editTitle}

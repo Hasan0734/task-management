@@ -6,6 +6,7 @@ import { Card } from "../ui/card";
 import BoardItem from "./BoardItem";
 import Draggable from "../Draggable";
 import Droppable from "../Droppable";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 
 const BoardDetails = () => {
   const [items, setItems] = useState<string[]>([]);
@@ -26,22 +27,17 @@ const BoardDetails = () => {
   }
   return (
     <DndContext>
-      <Card className="bg-orange-500 min-h-dvh p-4 overflow-hidden">
-        {parent === null ? draggableMarkup : null}
-
-        {containers.map((id) => (
-          // We updated the Droppable component so it would accept an `id`
-          // prop and pass it to `useDroppable`
-          <Droppable key={id} id={id}>
-            {parent === id ? draggableMarkup : "Drop here"}
-          </Droppable>
-        ))}
-
-        <div className="grid grid-cols-5 gap-5 items-start">
-          {items.map((item, i) => (
-            <BoardItem key={i} item={item} />
-          ))}
-          <AddNewList handleAddItem={handleAddItem} />
+      <Card className="bg-orange-500 p-4">
+        <div className="overflow-hidden w-full">
+          <ScrollArea className="h-[700px] w-screen overflow-x-hidden overflow-y-auto  rounded-md border relative">
+            <div className="flex  gap-5 items-start min-h-[650px]">
+              {items.map((item, i) => (
+                <BoardItem key={i} item={item} />
+              ))}
+              <AddNewList handleAddItem={handleAddItem} />
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
         </div>
       </Card>
     </DndContext>
