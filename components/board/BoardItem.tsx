@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
-import { EllipsisIcon, PlusIcon, XIcon } from "lucide-react";
+import { EllipsisIcon, GripIcon, PlusIcon, XIcon } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
@@ -10,6 +10,7 @@ import { Column, Id } from "@/lib/types";
 import { ScrollArea } from "../ui/scroll-area";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useSmartClickDrag } from "@/lib/useSmartClickDrag";
 
 interface Props {
   item: Column;
@@ -82,26 +83,29 @@ const BoardItem = ({ item, deleteColumn }: Props) => {
         {/* title */}
         <div
           {...attributes}
-          {...listeners}
-          className="flex items-center justify-between cursor-grab gap-3 bg-gray-700/20 p-1 px-2 rounded-md"
+          className="flex items-center justify-between gap-3 bg-gray-700/20 p-1 px-2 rounded-md group"
         >
-          {editTitle ? (
-            <Input
-              autoFocus
-              onBlurCapture={handleChangeTitle}
-              className={cn("text-white text-lg")}
-              defaultValue={itemTitle.title}
-            />
-          ) : (
-            <h3
-              className="text-white text-lg w-full"
-              onClick={() => setEditTitle(true)}
-            >
-              {itemTitle.title}
-            </h3>
-          )}
+          <div className="flex gap-3 items-center overflow-hidden">
+            <div className="group-hover:ml-0 -ml-6  transition duration-200 cursor-grab bg-gray-500 p-1 rounded" {...listeners}>
+              <GripIcon className="size-4" />
+            </div>
 
-          <button onClick={() => deleteColumn(item.id)} className="text-white">
+            {editTitle ? (
+              <Input
+                autoFocus
+                onBlurCapture={handleChangeTitle}
+                className={cn("text-white text-lg")}
+                defaultValue={itemTitle.title}
+              />
+            ) : (
+              <h3 className="text-white text-lg w-full">{itemTitle.title}</h3>
+            )}
+          </div>
+
+          <button
+            onClick={() => deleteColumn(item.id)}
+            className="text-white z-30"
+          >
             <EllipsisIcon />
           </button>
         </div>

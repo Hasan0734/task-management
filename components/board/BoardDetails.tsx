@@ -40,23 +40,17 @@ const BoardDetails = () => {
   };
 
   const onDragEnd = (event: DragEndEvent) => {
-    const { active, over }:any = event;
+    const { active, over }: any = event;
     if (!over) return;
-  
+
     if (active.id !== over.id) {
       setItems((items) => {
         const oldIndex = items.findIndex((items) => items.id === active.id);
         const newIndex = items.findIndex((items) => items.id === over.id);
-
-        console.log(oldIndex, newIndex)
-        
         return arrayMove(items, oldIndex, newIndex);
       });
     }
-    
   };
-
-  console.log(items)
 
   return (
     <Card className="bg-orange-500 p-4">
@@ -65,7 +59,11 @@ const BoardDetails = () => {
           <div className="flex gap-5 items-start min-h-[650px] w-full">
             <SortableContext items={columnId}>
               {items.map((item: Column, i) => (
-                <BoardItem key={item.id} item={item} deleteColumn={deleteColumn} />
+                <BoardItem
+                  key={item.id}
+                  item={item}
+                  deleteColumn={deleteColumn}
+                />
               ))}
             </SortableContext>
 

@@ -21,7 +21,6 @@ const AddNewList = ({ handleAddItem }: PropsType) => {
   const ref = useOutsideClick(handleOutsideClick);
 
   const handlePopover = () => {
-
     setModalOpen(true);
   };
 
