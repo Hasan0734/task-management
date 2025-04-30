@@ -79,14 +79,14 @@ const BoardItem = ({ item, deleteColumn }: Props) => {
       style={style}
       className="min-w-[272px] max-w-[272px] p-2 bg-primary space-y-3 border-0 rounded-md"
     >
-      <CardContent className="p-0  w-full">
+      <CardContent className="p-0 w-full">
         {/* title */}
         <div
           {...attributes}
           className="flex items-center justify-between gap-3 bg-gray-700/20 p-1 px-2 rounded-md group"
         >
-          <div className="flex gap-3 items-center overflow-hidden">
-            <div className="group-hover:ml-0 -ml-6  transition duration-200 cursor-grab bg-gray-500 p-1 rounded" {...listeners}>
+          <div className="flex flex-1 gap-3 items-center overflow-hidden">
+            <div className="group-hover:translate-x-0 -translate-x-6  transition duration-200 cursor-grab bg-gray-500 p-1 rounded" {...listeners}>
               <GripIcon className="size-4" />
             </div>
 
@@ -98,7 +98,7 @@ const BoardItem = ({ item, deleteColumn }: Props) => {
                 defaultValue={itemTitle.title}
               />
             ) : (
-              <h3 className="text-white text-lg w-full">{itemTitle.title}</h3>
+              <h3 className="text-white text-lg w-full group-hover:translate-x-0 -translate-x-9  transition duration-200">{itemTitle.title}</h3>
             )}
           </div>
 
